@@ -8,7 +8,7 @@ ATank_CPP::ATank_CPP()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	Aiming = CreateDefaultSubobject<UAimingCPP>(FName("Componenti"));
 }
 
 // Called when the game starts or when spawned
@@ -32,3 +32,17 @@ void ATank_CPP::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void ATank_CPP::AimAt(FVector HitLocation)
+{
+	Aiming->AimAt(HitLocation, VelLancio);
+}
+
+void ATank_CPP::SetCannone(UTorrettaMesh* Set)
+{
+	Aiming->SetCannone(Set);
+}
+
+void ATank_CPP::SetTorre(UTorrettaMesh* Set)
+{
+	Aiming->SetTorre(Set);
+}
