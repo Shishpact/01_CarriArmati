@@ -11,7 +11,9 @@ void ATankAICPP::BeginPlay()
 
 	if (!CarroControllato || !Bersaglio)  return;
 
-	UE_LOG(LogTemp, Warning, TEXT("Carro nemico:  %s"), *Bersaglio->GetName());
+	Timer = FMath::FRandRange(4, 6);
+	if (!CarroControllato || !Bersaglio) return;
+	//UE_LOG(LogTemp, Warning, TEXT("Carro nemico:  %s"), *Bersaglio->GetName());
 	
 }
 
@@ -34,5 +36,12 @@ void ATankAICPP::Tick(float deltatime)
 	if (GetPlayerTank())
 	{
 		GetTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		if (Timer > 0) Timer -= deltatime;
+		else
+		{
+			GetTank()->SpawnOggetto();
+			Timer = FMath::FRandRange(4, 6);
+		}
+		MoveToActor(GetPlayerTank(), RDistanza);
 	}
 }

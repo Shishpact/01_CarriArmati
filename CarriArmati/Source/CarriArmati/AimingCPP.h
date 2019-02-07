@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TorrettaMesh.h"
+#include "Proiettile.h"
 #include "AimingCPP.generated.h"
 
 
@@ -18,11 +19,28 @@ public:
 	// Sets default values for this component's properties
 	UAimingCPP();
 
+	float ricarica;
+
+	UFUNCTION(BlueprintCallable, Category = "Fuoco")
+		void SpawnOggetto();
+
+	UPROPERTY(EditAnywhere, Category = "Firing")
+		float VelLancio = 10000;
+
+	AProiettile* Proiettile = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "fuoco")
+		TSubclassOf<class AProiettile> Proiettile_BP;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	void MuoviCannone(FVector AimDirection);
+
+	UPROPERTY(EditAnywhere, Category = "SetUp")
+		float ricarica_time = 2;
+
 
 public:	
 	// Called every frame
@@ -35,4 +53,6 @@ public:
 	
 	UTorrettaMesh * Cannone = nullptr;
 	UTorrettaMesh * Torre = nullptr;
+
+	
 };

@@ -9,9 +9,7 @@
 #include "TankControllerCPP.h"
 #include "TankAICPP.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class CARRIARMATI_API ATankAICPP : public AAIController
 {
@@ -24,5 +22,8 @@ class CARRIARMATI_API ATankAICPP : public AAIController
 	ATank_CPP* GetPlayerTank();
 
 	virtual void Tick(float deltatime) override;
+	float Timer = 0;
 
+	UPROPERTY(EditAnywhere, Category = "SetUp")
+		float RDistanza = 300;
 };

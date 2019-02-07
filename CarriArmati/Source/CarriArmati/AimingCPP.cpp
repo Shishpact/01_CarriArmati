@@ -33,7 +33,7 @@ void UAimingCPP::MuoviCannone(FVector AimDirection)
 	
 
 
-	UE_LOG(LogTemp, Warning, TEXT("Il barrel %s mira a %s"), *Rotazione.ToString(), *AimRotation.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("Il barrel %s mira a %s"), *Rotazione.ToString(), *AimRotation.ToString());
 }
 
 // Called when the game starts
@@ -50,7 +50,7 @@ void UAimingCPP::BeginPlay()
 void UAimingCPP::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	if (ricarica > 0) ricarica -= DeltaTime;
 	// ...
 }
 
@@ -101,3 +101,21 @@ void UAimingCPP::SetTorre(UTorrettaMesh* Set)
 {
 	Torre = Set;
 }
+
+void UAimingCPP::SpawnOggetto()
+{
+	if (Proiettile_BP)
+	{
+		if (ricarica <= 0)
+		{
+			FVector PSparo = Cannone->GetSocketLocation(FName("fuoco"));
+			FRotator  RSparo = Cannone->GetSocketRotation(FName("fuoco"));
+			auto Proiettile = GetWorld()->SpawnActor<AProiettile>(Proiettile_BP, PSparo, RSparo);
+			Proiettile->Lancio(VelLancio);
+
+			ricarica = ricarica_time;
+		}
+	}
+	
+}
+

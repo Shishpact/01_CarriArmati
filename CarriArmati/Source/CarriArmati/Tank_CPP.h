@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "AimingCPP.h"
+#include "Movimento.h"
 #include "Tank_CPP.generated.h"
 
 UCLASS()
@@ -18,6 +19,8 @@ class CARRIARMATI_API ATank_CPP : public APawn
 		return Cannone;
 
 	}
+
+	
 
 public:
 	// Sets default values for this pawn's properties
@@ -35,12 +38,13 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "SetUp")
 		void SetTorre(UTorrettaMesh* Set);
 
+	
+
 	UTorrettaMesh* Cannone = nullptr;
 	UTorrettaMesh* Torre = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = "Firing")
+	UPROPERTY(EditAnywhere,Category = "Firing")
 		float VelLancio = 100000;
-
 
 
 public:	
@@ -51,5 +55,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void AimAt(FVector HitLocation);
+	void SpawnOggetto();
+
+	//UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "SetUp")
+		//UMovimento* move = nullptr;
 
 };
